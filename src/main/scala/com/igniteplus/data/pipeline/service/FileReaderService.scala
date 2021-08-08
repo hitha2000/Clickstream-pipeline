@@ -1,7 +1,7 @@
 package com.igniteplus.data.pipeline.service
 
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import com.igniteplus.data.pipeline.constants.ApplicationConstants.{INPUT_LOCATION_CLICKSTREAM, READ_EXCEPTION_FILE}
+import com.igniteplus.data.pipeline.constants.ApplicationConstants.INPUT_LOCATION_CLICKSTREAM
 import com.igniteplus.data.pipeline.exception.FileReadException
 
 object FileReaderService {
@@ -15,7 +15,7 @@ object FileReaderService {
       }
       catch {
         case e: Exception =>
-          FileReadException("unable to read files in the given location " + s"$INPUT_LOCATION_CLICKSTREAM")
+          FileReadException("unable to read files in the given location " + path)
           spark.emptyDataFrame
 
       }
@@ -24,7 +24,7 @@ object FileReaderService {
 
     if(dfDataCount == 0) {
 
-      throw FileReadException("No files read from the file reader " + s"$INPUT_LOCATION_CLICKSTREAM")
+      throw FileReadException("No files read from the file reader " + path)
 
     }
     else

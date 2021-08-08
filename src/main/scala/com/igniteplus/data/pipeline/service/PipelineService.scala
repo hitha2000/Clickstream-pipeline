@@ -8,6 +8,7 @@ import com.igniteplus.data.pipeline.cleaner.Cleanser
 object PipelineService {
 
   def executePipeline():Unit = {
+
     //Creating a SparkSession
     implicit val spark:SparkSession=ApplicationUtil.createSparkSession(APP_NAME , MASTER)
 
@@ -17,27 +18,14 @@ object PipelineService {
     val dfItem:DataFrame = FileReaderService.readFile(INPUT_LOCATION_ITEM , CSV_FORMAT)
 
 
-    // FLITER NULL COLUMNS
+    // Filter null columns and write to an output file
     val dfClickStreamNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfCLickStream,
-                                                                      CLICKSTREAM_UNIQUE_COLUMNS,
-                                                                      JSON_FORMAT,
-                                                                      SAVE_FILE_MODE,
-                                                                      WRITE_NULLKEY_PATH)
+                                                                      CLICKSTREAM_UNIQUE_COLUMNS
+                                                                     )
     val dfItemNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfItem ,
-                                                                ITEM_UNIQUE_COLUMNS,
-                                                                JSON_FORMAT,
-                                                                SAVE_FILE_MODE,
-                                                                WRITE_NULLKEY_PATH)
-    // WRITE  NULL DATA TO A FILE
-//    val dfWriteNullClickStream:DataFrame = FileWriterService.writeFile(dfClickStreamNullKey,
-//                                                                        CSV_FORMAT,
-//                                                                        SAVE_FILE_MODE,
-//                                                                        WRITE_PATH)
-//
-//    val dfWriteNullItem:DataFrame = FileWriterService.writeFile(dfItemNullKey,
-//                                                                CSV_FORMAT,
-//                                                                SAVE_FILE_MODE,
-//                                                                WRITE_PATH)
+                                                                ITEM_UNIQUE_COLUMNS
+                                                               )
+
 
     //Validate datatype
     val dfClickStreamDatatype:DataFrame = Cleanser.changeDataType(dfCLickStream,

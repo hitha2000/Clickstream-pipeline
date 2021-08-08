@@ -11,7 +11,8 @@ object ClickStreamPipeline extends Logging {
   def main(args: Array[String]): Unit = {
 
     val logger :internal.Logger = LoggerFactory.getLogger(this.getClass)
-    val exception = try {
+
+    try {
        PipelineService.executePipeline()
     }
 
@@ -22,14 +23,12 @@ object ClickStreamPipeline extends Logging {
         FileWriterService.writeException(e.toString,READ_EXCEPTION_FILE)
 
       case e: FileWriteException =>
-
         logError("File write exception ", e)
-
 
       case e: Exception =>
        // logger.error("Unknown exception")
       logError("Unknown exception ", e)
     }
-   // FileWriterService.writeFile(exception.toString,READ_EXCEPTION_FILE)
+
   }
 }

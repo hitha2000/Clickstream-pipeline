@@ -7,14 +7,13 @@ object ApplicationConstants {
   val INPUT_LOCATION_CLICKSTREAM:String="data/input/clickstream/clickstream_log.csv"
   val INPUT_LOCATION_ITEM:String="data/input/item/item_data.csv"
 
-  val INPUT_WRITE_DATA:String = "data/output/merged-data/writeNullKeyCol/"
 
   val CSV_FORMAT:String = "csv"
   val JSON_FORMAT:String = "json"
 
   val SAVE_FILE_MODE:String = "append"
 
-  val WRITE_NULLKEY_PATH:String = "data/output/merged-data/writeNullKeyCol/nullKeyColumnValues"
+  val WRITE_NULL_COLUMN_PATH:String = "data/output/merged-data/writeNullKeyCol/nullKeyColumnValues"
   val READ_EXCEPTION_FILE:String = "data/output/merged-data/exceptions/readException.csv"
 
   val TIMESTAMP_TYPE:String = "timestamp"
