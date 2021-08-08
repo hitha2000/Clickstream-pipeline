@@ -1,9 +1,9 @@
 package com.igniteplus.data.pipeline.cleaner
 
 import com.igniteplus.data.pipeline.service.FileWriterService
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.functions.{col, desc, lower, row_number, trim, unix_timestamp}
+import org.apache.spark.sql.functions.{col, desc, length, lower, row_number, substring, trim, unix_timestamp, when}
 
 
 
@@ -35,14 +35,15 @@ object Cleanser {
   // Filter Null Columns
   def checkNullKeyColumns(df:DataFrame,
                           columnList: Seq[String]):DataFrame = {
-    var dfCheckNullKey = df
+    //var dfCheckNullKey = df
+   val colNames:Seq[Column] = columnList.map(ex => col(ex))
+   val condition:Column = colNames.map(ex => ex.isNull).reduce(_ || _)
+//    for(i <- columnList) {
+//      dfCheckNullKey = dfCheckNullKey.filter(col(i).isNull)
+//    }
 
-    for(i <- columnList) {
-      dfCheckNullKey = dfCheckNullKey.filter(col(i).isNull)
-    }
-
-    dfCheckNullKey
-
+  val dfCheckNullKey:DataFrame = df.withColumn("nullFlag" , when(condition,value = "true").otherwise(value = "false"))
+  dfCheckNullKey
   }
 
   // Filter Not Null key columns
@@ -58,18 +59,19 @@ object Cleanser {
   //Remove Duplicates
 
   def removeDuplicates (df:DataFrame ,
-                       orderByCol: String ,
-                       partitionColumns : Seq[String]
+                        keyColumns : Seq[String],
+                        orderByCol: String
                       ) : DataFrame  = {
-    if( orderByCol == "event_timestamp") {
-      val windowSpec = Window.partitionBy(partitionColumns.map(col):_* ).orderBy(desc(orderByCol))
+
+    if( orderByCol != null) {
+      val windowSpec = Window.partitionBy(keyColumns.map(col):_* ).orderBy(desc(orderByCol.toString))
       val dfDropDuplicate: DataFrame = df.withColumn(colName ="row_number", row_number().over(windowSpec))
         .filter(conditionExpr = "row_number == 1" ).drop("row_number")
       println("Distinct count of session_id and visitor_id  and event_timestamp and item id: "+ dfDropDuplicate.count())
       dfDropDuplicate
     }
     else {
-      val dfDropDupItem = df.dropDuplicates(orderByCol)
+      val dfDropDupItem = df.dropDuplicates(keyColumns)
       dfDropDupItem.show()
       dfDropDupItem
     }

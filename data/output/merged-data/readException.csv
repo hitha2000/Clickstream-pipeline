@@ -1,0 +1,2 @@
+com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
+com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
