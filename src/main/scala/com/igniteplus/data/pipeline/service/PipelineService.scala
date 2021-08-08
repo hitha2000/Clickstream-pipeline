@@ -18,8 +18,16 @@ object PipelineService {
 
 
     // FLITER NULL COLUMNS
-    val dfClickStreamNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfCLickStream,CLICKSTREAM_UNIQUE_COLUMNS)
-    val dfItemNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfItem , ITEM_UNIQUE_COLUMNS)
+    val dfClickStreamNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfCLickStream,
+                                                                      CLICKSTREAM_UNIQUE_COLUMNS,
+                                                                      JSON_FORMAT,
+                                                                      SAVE_FILE_MODE,
+                                                                      WRITE_NULLKEY_PATH)
+    val dfItemNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfItem ,
+                                                                ITEM_UNIQUE_COLUMNS,
+                                                                JSON_FORMAT,
+                                                                SAVE_FILE_MODE,
+                                                                WRITE_NULLKEY_PATH)
     // WRITE  NULL DATA TO A FILE
 //    val dfWriteNullClickStream:DataFrame = FileWriterService.writeFile(dfClickStreamNullKey,
 //                                                                        CSV_FORMAT,

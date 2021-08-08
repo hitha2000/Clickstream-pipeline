@@ -2,65 +2,91 @@ package com.igniteplus.data.pipeline.service
 
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.INPUT_WRITE_DATA
 import com.igniteplus.data.pipeline.exception.FileWriteException
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.DataFrame
 
-import java.nio.file.{Files, Paths, StandardOpenOption}
-import java.nio.charset.StandardCharsets
-import java.io.{File, FileWriter, PrintWriter}
-import scala.io.Source
+import java.io.FileWriter
+import java.text.SimpleDateFormat
+import java.util.Calendar
+
 
 object FileWriterService {
 
-  def writeFile(df:String,
-              //  fileFormat:String,
-               // fileSaveMode:String,
+  def writeDf(df:DataFrame,
+              fileFormat:String,
+              fileSaveMode:String,
+              path:String):Unit = {
+
+    val dfWriteFile = try {
+
+      df.write.format(fileFormat).mode(fileSaveMode).save(path)
+
+    }
+    catch {
+      case e: Exception =>
+        FileWriteException("unable to write files in the given location " + s"$INPUT_WRITE_DATA")
+    }
+
+    if(dfWriteFile == null) {
+
+      throw FileWriteException("No files written to the output file  " + s"$INPUT_WRITE_DATA")
+    }
+    else
+    {
+      println(dfWriteFile)
+    }
+
+
+  }
+
+  def writeException(exceptions:String,
                 path:String): Unit = {
 
 
-      try {
+    val format = new SimpleDateFormat("dd/MM/yyyy hh:mm aa")
+    val currDate:String =format.format(Calendar.getInstance().getTime())
+    val writeException:String = currDate+":  " + exceptions
 
+     val writeFileException:Unit =  try {
 
         val fileWrite = new FileWriter(path, true) ;
-        fileWrite.write( df)
+        fileWrite.write(writeException)
         fileWrite.append("\n")
         fileWrite.close()
 
-     // METHOD-2
-    //        val writer = new PrintWriter(new File(path))
-    //
-    //        writer.write(df)
-    //        writer.append("\n")
-    //        writer.close()
+     }
 
-      // ITS ONLY USED TO WRITE DF
-      // df.write.format(fileFormat).mode(fileSaveMode).save(path)
-
-      // WORKS BUT NEW EXCEPTIONS CANT BE WRITTEN IN A NEW LINE
-      // val writeString:String = System.lineSeparator + df
-      // Files.write(Paths.get(path), df.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND)
-      //Files.write(Paths.get(path), writeString, StandardOpenOption.APPEND)
-
-
-
-      }
       catch {
         case e: Exception =>
-          FileWriteException("unable to write files in the given location " + s"$INPUT_WRITE_DATA")
+          FileWriteException("unable to write file exceptions in the given location " + s"$INPUT_WRITE_DATA")
 
       }
 
+    if(writeFileException == null) {
 
-
-//    if(dfWriteData) {
-//
-//      throw FileWriteException("No files read from the file reader " + s"$INPUT_WRITE_DATA")
-//    }
-//    else
-//    {
-//      println(dfWriteData)
-//    }
-//
-//
+      throw FileWriteException("No file exceptions written to the output file  " + s"$INPUT_WRITE_DATA")
+    }
+    else
+    {
+      println(writeException)
+    }
 
   }
 }
+
+
+// METHOD-2
+//        val writer = new PrintWriter(new File(path))
+//
+//        writer.write(df)
+//        writer.append("\n")
+//        writer.close()
+
+
+
+// WORKS BUT NEW EXCEPTIONS CANT BE WRITTEN IN A NEW LINE
+// val writeString:String = System.lineSeparator + df
+// Files.write(Paths.get(path), df.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND)
+//Files.write(Paths.get(path), writeString, StandardOpenOption.APPEND)
+
+
+

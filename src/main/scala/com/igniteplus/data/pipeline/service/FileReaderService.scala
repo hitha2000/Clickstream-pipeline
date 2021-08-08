@@ -11,12 +11,11 @@ object FileReaderService {
 
     val dfReadData: DataFrame =
       try {
-        spark.read.option("header","true").format(fileFormat).load(path)
+        spark.read.option("header","true").option("timestampFormat", "yyyy-MM-dd HH:mm").format(fileFormat).load(path)
       }
       catch {
         case e: Exception =>
           FileReadException("unable to read files in the given location " + s"$INPUT_LOCATION_CLICKSTREAM")
-        //  FileWriterService.writeFile(e.toString,READ_EXCEPTION_FILE)
           spark.emptyDataFrame
 
       }

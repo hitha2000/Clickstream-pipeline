@@ -19,13 +19,11 @@ object ClickStreamPipeline extends Logging {
       case e: FileReadException =>
         //logger.error("File read exception")
         logError("File read exception ", e)
-        FileWriterService.writeFile(e.toString,READ_EXCEPTION_FILE)
+        FileWriterService.writeException(e.toString,READ_EXCEPTION_FILE)
 
       case e: FileWriteException =>
 
         logError("File write exception ", e)
-
-
 
 
       case e: Exception =>
