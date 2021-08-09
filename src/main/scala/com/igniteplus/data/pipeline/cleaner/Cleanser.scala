@@ -1,10 +1,10 @@
 package com.igniteplus.data.pipeline.cleaner
 
-import com.igniteplus.data.pipeline.constants.ApplicationConstants.{JSON_FORMAT, SAVE_FILE_MODE, WRITE_NULL_COLUMN_PATH}
+import com.igniteplus.data.pipeline.constants.ApplicationConstants._
 import com.igniteplus.data.pipeline.service.FileWriterService
 import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.functions.{col, desc, length, lower, row_number, substring, trim, unix_timestamp, when}
+import org.apache.spark.sql.functions.{col, desc, lower, row_number, trim, unix_timestamp, when}
 
 
 
@@ -35,8 +35,8 @@ object Cleanser {
 
   // Filter Null Columns
   def checkNullKeyColumns(df:DataFrame,
-                          columnList: Seq[String]
-                         ):DataFrame = {
+                          columnList: Seq[String],
+                         path:String):DataFrame = {
 
     val colNames:Seq[Column] = columnList.map(ex => col(ex))
     val condition:Column = colNames.map(ex => ex.isNull).reduce(_ || _)
@@ -48,18 +48,12 @@ object Cleanser {
     dfCheckNullKey.show()
     dfNotNullKey.show()
 
-    if(dfCheckNullKey.count() == 0)
-      {
-        FileWriterService.writeDf(dfCheckNullKey,
-                                  JSON_FORMAT,
-                                  SAVE_FILE_MODE,
-                                  WRITE_NULL_COLUMN_PATH)
-      }
-    else
-      {
-        println(dfCheckNullKey)
-      }
-  dfCheckNullKey
+
+
+    if (dfCheckNullKey.count() > 0)
+      FileWriterService.writeFile(dfCheckNullKey ,CSV_FORMAT, path )
+
+  dfCheckNullKey.drop(col("nullFlag"))
   }
 
   // Filter Not Null key columns

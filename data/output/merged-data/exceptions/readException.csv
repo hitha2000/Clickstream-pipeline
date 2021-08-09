@@ -1,7 +1,0 @@
-com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
-com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
-com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
-java.text.SimpleDateFormat@f67a0200com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
-8-8-2021 com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
-08/08/2021 06:29 PM com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/dummy.csv
-08/08/2021 06:46 PM com.igniteplus.data.pipeline.exception.FileReadException: No files read from the file reader data/input/clickstream/clickstream_log.csv.csv

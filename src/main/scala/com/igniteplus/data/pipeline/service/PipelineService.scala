@@ -10,7 +10,7 @@ object PipelineService {
   def executePipeline():Unit = {
 
     //Creating a SparkSession
-    implicit val spark:SparkSession=ApplicationUtil.createSparkSession(APP_NAME , MASTER)
+    implicit val sparkSession :SparkSession = ApplicationUtil.createSparkSession(APP_NAME , MASTER)
 
 
     //Reading the dataset
@@ -20,10 +20,10 @@ object PipelineService {
 
     // Filter null columns and write to an output file
     val dfClickStreamNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfCLickStream,
-                                                                      CLICKSTREAM_UNIQUE_COLUMNS
+                                                                      CLICKSTREAM_UNIQUE_COLUMNS,CLICKSTREAM_NULL_ROWS_DATASET
                                                                      )
     val dfItemNullKey:DataFrame = Cleanser.checkNullKeyColumns(dfItem ,
-                                                                ITEM_UNIQUE_COLUMNS
+                                                                ITEM_UNIQUE_COLUMNS, ITEM_NULL_ROWS_DATASET
                                                                )
 
 

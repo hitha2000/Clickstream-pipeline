@@ -1,6 +1,6 @@
 package com.igniteplus.data.pipeline
 
-import com.igniteplus.data.pipeline.constants.ApplicationConstants.{JSON_FORMAT, READ_EXCEPTION_FILE, SAVE_FILE_MODE}
+
 import com.igniteplus.data.pipeline.exception.{FileReadException, FileWriteException}
 import com.igniteplus.data.pipeline.service.{FileWriterService, PipelineService}
 import com.sun.org.slf4j.internal
@@ -9,6 +9,8 @@ import org.apache.spark.internal._
 
 object ClickStreamPipeline extends Logging {
   def main(args: Array[String]): Unit = {
+
+
 
     val logger :internal.Logger = LoggerFactory.getLogger(this.getClass)
 
@@ -20,7 +22,7 @@ object ClickStreamPipeline extends Logging {
       case e: FileReadException =>
         //logger.error("File read exception")
         logError("File read exception ", e)
-        FileWriterService.writeException(e.toString,READ_EXCEPTION_FILE)
+       // FileWriterService.writeException(e.toString,READ_EXCEPTION_FILE)
 
       case e: FileWriteException =>
         logError("File write exception ", e)

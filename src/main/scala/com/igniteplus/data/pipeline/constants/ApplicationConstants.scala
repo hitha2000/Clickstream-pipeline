@@ -2,7 +2,7 @@ package com.igniteplus.data.pipeline.constants
 
 object ApplicationConstants {
   val MASTER:String="local"
-  val APP_NAME:String="Clickstream Pipeline"
+  val APP_NAME:String="Clickstream_Pipeline"
 
   val INPUT_LOCATION_CLICKSTREAM:String="data/input/clickstream/clickstream_log.csv"
   val INPUT_LOCATION_ITEM:String="data/input/item/item_data.csv"
@@ -11,10 +11,15 @@ object ApplicationConstants {
   val CSV_FORMAT:String = "csv"
   val JSON_FORMAT:String = "json"
 
-  val SAVE_FILE_MODE:String = "append"
+  val SAVE_FILE_MODE:String = "overwrite"
 
-  val WRITE_NULL_COLUMN_PATH:String = "data/output/merged-data/writeNullKeyCol/nullKeyColumnValues"
-  val READ_EXCEPTION_FILE:String = "data/output/merged-data/exceptions/readException.csv"
+  //val WRITE_NULL_COLUMN_PATH:String = "data/output/"
+  //"data/output/merged-data/writeNullKeyCol"
+  //val READ_EXCEPTION_FILE:String = "data/output/merged-data/exceptions"
+
+  val CLICKSTREAM_NULL_ROWS_DATASET: String ="data/output/pipeline_failures/clickstream_null_values"
+  val ITEM_NULL_ROWS_DATASET: String ="data/output/pipeline_failures/item_null_values"
+
 
   val TIMESTAMP_TYPE:String = "timestamp"
   val FLOAT_TYPE:String = "float"
