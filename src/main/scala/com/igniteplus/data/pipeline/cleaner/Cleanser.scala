@@ -45,6 +45,7 @@ object Cleanser {
     val dfCheckNullKey:DataFrame = dfNullKey.filter(dfNullKey("nullFlag") === "true")
     val dfNotNullKey:DataFrame = dfNullKey.filter(dfNullKey("nullFlag") === "false")
 
+
     dfCheckNullKey.show()
     dfNotNullKey.show()
 
@@ -72,6 +73,8 @@ object Cleanser {
                         keyColumns : Seq[String],
                         orderByCol: String
                       ) : DataFrame  = {
+
+
 
     if( orderByCol != null) {
       val windowSpec = Window.partitionBy(keyColumns.map(col):_* ).orderBy(desc(orderByCol.toString))

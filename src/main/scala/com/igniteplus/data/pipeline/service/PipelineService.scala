@@ -36,8 +36,8 @@ object PipelineService {
                                                             ITEM_VALID_DATATYPE)
 
     //Remove Null key columns
-    val dfFilterClickStream:DataFrame = Cleanser.DataNotNull(dfClickStreamDatatype,CLICKSTREAM_UNIQUE_COLUMNS)
-    val dfFilterItem:DataFrame = Cleanser.DataNotNull(dfItemDatatype,ITEM_UNIQUE_COLUMNS)
+    val dfFilterClickStream:DataFrame = Cleanser.DataNotNull(dfClickStreamDatatype,CLICKSTREAM_UNIQUE_COLUMNS).distinct()
+    val dfFilterItem:DataFrame = Cleanser.DataNotNull(dfItemDatatype,ITEM_UNIQUE_COLUMNS).distinct()
 
     //Remove duplicates
     val dfDropClickStreamDup:DataFrame = Cleanser.removeDuplicates(dfFilterClickStream,

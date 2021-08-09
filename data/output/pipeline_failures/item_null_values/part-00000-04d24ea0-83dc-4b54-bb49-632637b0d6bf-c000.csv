@@ -1,0 +1,3 @@
+item_id,item_price,product_type,department_name,nullFlag
+,789,,Electronics,true
+,89,,Baby,true
