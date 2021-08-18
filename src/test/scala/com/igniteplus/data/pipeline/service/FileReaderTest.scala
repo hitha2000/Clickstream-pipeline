@@ -15,11 +15,11 @@ class FileReaderTest extends AnyFlatSpec with BeforeAndAfterAll{
     spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
   }
 
-//  "readFile() method" should "read data from the given location" in {
-//    val sampleDF = readFile(readLocation,fileFormat)(spark)
-//    val rcount = sampleDF.count()
-//    assertResult(countShouldBe)(rcount)
-//  }
+  "readFile() method" should "read data from the given location" in {
+    val sampleDF = readFile(readLocation,fileFormat)(spark)
+    val rcount = sampleDF.count()
+    assertResult(countShouldBe)(rcount)
+  }
 
   "readFile() method" should "throw exception in case it's not able to read data" in {
     assertThrows[FileReadException] {
