@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\data\input\testDf\deduplicationLocation.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\data\input\testDf\testData.csv">
           <value>
             <Attribute>
@@ -17,21 +24,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\data\output\testOutput\testData.csv\part-00000-490b22b6-0e5b-41c8-a1e6-d844ae235a5b-c000.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\data\output\testOutput\testDataOutput.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\data\output\testOutput\testDataOutput.csv\part-00000-d50cccf0-5361-4074-9c0c-82299ddca949-c000.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
