@@ -16,9 +16,10 @@ object Cleanser {
                      dataType : Seq[String]):DataFrame = {
     var dfToDataType = df
     for( i <- colList.indices) {
-      if(dataType(i) == "timestamp")
+      if(dataType(i) == TIMESTAMP_TYPE)
         {
-          dfToDataType= dfToDataType.withColumn(colList(i),unix_timestamp(col(colList(i)),"MM/dd/yyyy H:mm").cast("double").cast(dataType(i)))
+          dfToDataType= dfToDataType.withColumn(colList(i),unix_timestamp(col(colList(i)),TIMESTAMP_FORMAT).
+                          cast(DOUBLE_TYPE).cast(dataType(i)))
           dfToDataType.printSchema()
 
         }
@@ -71,23 +72,26 @@ object Cleanser {
 
   def removeDuplicates (df:DataFrame ,
                         keyColumns : Seq[String],
-                        orderByCol: String
+                        orderByCol: Option[String]
                       ) : DataFrame  = {
 
+    val dfDropDuplicate:DataFrame = orderByCol match {
+      case Some(orderCol) => {
+                          val windowSpec = Window.partitionBy(keyColumns.map(col):_* ).orderBy(desc(orderCol))
+                          df.withColumn(colName =ROW_NUMBER, row_number().over(windowSpec))
+                            .filter(conditionExpr = ROW_CONDITION ).drop(ROW_NUMBER)
+
+                        }
+      case _ => df.dropDuplicates(keyColumns)
+
+    }
+
+    println("Distinct count : "+ dfDropDuplicate.count())
 
 
-    if( orderByCol != null) {
-      val windowSpec = Window.partitionBy(keyColumns.map(col):_* ).orderBy(desc(orderByCol.toString))
-      val dfDropDuplicate: DataFrame = df.withColumn(colName ="row_number", row_number().over(windowSpec))
-        .filter(conditionExpr = "row_number == 1" ).drop("row_number")
-      println("Distinct count of session_id and visitor_id  and event_timestamp and item id: "+ dfDropDuplicate.count())
-      dfDropDuplicate
-    }
-    else {
-      val dfDropDupItem = df.dropDuplicates(keyColumns)
-      dfDropDupItem.show()
-      dfDropDupItem
-    }
+    dfDropDuplicate
+
+
   }
 
 

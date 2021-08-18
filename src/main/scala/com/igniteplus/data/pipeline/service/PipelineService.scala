@@ -42,10 +42,10 @@ object PipelineService {
     //Remove duplicates
     val dfDropClickStreamDup:DataFrame = Cleanser.removeDuplicates(dfFilterClickStream,
                                                           CLICKSTREAM_UNIQUE_COLUMNS,
-                                                          EVENT_TIMESTAMP_OPTION
+                                                          Some(EVENT_TIMESTAMP_OPTION)
                                                           )
 
-    val dfDropItemDup:DataFrame = Cleanser.removeDuplicates(dfFilterItem ,ITEM_UNIQUE_COLUMNS,null)
+    val dfDropItemDup:DataFrame = Cleanser.removeDuplicates(dfFilterItem ,ITEM_UNIQUE_COLUMNS,None)
 
     //Convert to correct casing
     val dfClickStreamLowerCase:DataFrame = Cleanser.toLowerCase(dfDropClickStreamDup,CLICKSTREAM_LOWERCASE_COLUMNS )

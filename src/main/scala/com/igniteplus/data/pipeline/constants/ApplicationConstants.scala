@@ -23,6 +23,9 @@ object ApplicationConstants {
 
   val TIMESTAMP_TYPE:String = "timestamp"
   val FLOAT_TYPE:String = "float"
+  val DOUBLE_TYPE:String = "double"
+
+  val TIMESTAMP_FORMAT:String = "MM/dd/yyyy H:mm"
 
 
   val SESSION_ID:String = "session_id"

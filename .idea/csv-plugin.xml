@@ -3,21 +3,35 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\data\output\pipeline_failures\clickstream_null_values\part-00000-a41b2c23-5a24-490a-bb5c-cb83c1cb688d-c000.csv">
+        <entry key="\data\input\clickstream\clickstream_log.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\data\output\pipeline_failures\clickstream_null_values\part-00000-b1efe8d4-3789-407c-b9c6-e42203e5d875-c000.csv">
+        <entry key="\data\input\testDf\testData.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\data\output\pipeline_failures\item_null_values\part-00000-168d71b2-2e0d-4a57-9480-48716b1c0502-c000.csv">
+        <entry key="\data\output\testOutput\testData.csv\part-00000-490b22b6-0e5b-41c8-a1e6-d844ae235a5b-c000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\output\testOutput\testDataOutput.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\data\output\testOutput\testDataOutput.csv\part-00000-d50cccf0-5361-4074-9c0c-82299ddca949-c000.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

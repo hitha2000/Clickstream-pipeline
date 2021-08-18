@@ -1,39 +1,27 @@
 package com.igniteplus.data.pipeline.service
 
 
-import org.apache.spark.sql.{DataFrame, SaveMode}
+import com.igniteplus.data.pipeline.exception.FileWriteException
+import org.apache.spark.sql.DataFrame
 
 
 
 
 object FileWriterService {
 
-  def writeFile(df:DataFrame,
-                writeFormat: String,
-               path:String
-                ): Unit = {
-//    df.write
-//      .option("header",true)
-//      .format("com.databricks.spark.csv")
-//      .save(path)
-//    df.write.format(writeFormat) .option("header", "true") .option("inferSchema", "true") .option("delimiter", "|")
-  //    .save(path)
+  def writeFile(df: DataFrame, fileType: String, filePath: String): Unit = {
+    try {
+      df.write.format(fileType)
+        .option("header", "true")
+        .mode("overwrite")
+        .option("sep", ",")
+        .save(filePath)
+    }
+    catch {
+      case e: Exception => FileWriteException("Unable to write files to the location " + s"$filePath")
+    }
 
-    //df.write.csv(path)
-//    df.write
-//      .format("com.databricks.spark.csv")
-//      .option("header", "true")
-//      .option("delimiter",",")
-//      .save(path)
-println("path : " + path)
-    df.coalesce(2)
-      .write
-      .option("header", "true")
-      .mode(SaveMode.Overwrite).csv(path)
-
-//    df. write.mode(SaveMode.Overwrite).csv("data/output/pipeline_failures/clickstream_null_values")
   }
-
 }
 
 
