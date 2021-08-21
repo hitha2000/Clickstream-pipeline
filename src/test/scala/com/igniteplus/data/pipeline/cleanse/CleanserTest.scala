@@ -18,8 +18,8 @@ class CleanserTest extends AnyFlatSpec with BeforeAndAfterAll{
   }
 
   "removeDuplicates() method" should "remove the duplicates from the inputDF" in {
-    val sampleDF = readFile(deduplicationLocation, fileFormat)(spark)
-    val deDuplicatedDF = removeDuplicates(sampleDF,CLICKSTREAM_UNIQUE_COLUMNS,Some("event_timestamp"))
+    val sampleDF:DataFrame = readFile(deduplicationLocation, fileFormat)(spark)
+    val deDuplicatedDF:DataFrame = removeDuplicates(sampleDF,CLICKSTREAM_UNIQUE_COLUMNS,Some("event_timestamp"))
     val rcount = deDuplicatedDF.count()
     val expectedCount = 2
     assertResult(expectedCount)(rcount)
