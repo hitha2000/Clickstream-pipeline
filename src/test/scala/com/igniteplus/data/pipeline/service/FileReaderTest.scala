@@ -1,13 +1,13 @@
 package com.igniteplus.data.pipeline.service
 
-import com.igniteplus.data.pipeline.constants.TestConstants.{countShouldBe, fileFormat, readLocation, readWrongLocation}
 import com.igniteplus.data.pipeline.exception.FileReadException
+import com.igniteplus.data.pipeline.helper.Helpers
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 
-class FileReaderTest extends AnyFlatSpec with BeforeAndAfterAll{
+class FileReaderTest extends AnyFlatSpec with BeforeAndAfterAll with Helpers{
 
   @transient var spark: SparkSession = _
 

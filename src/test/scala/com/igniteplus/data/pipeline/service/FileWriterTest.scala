@@ -1,31 +1,25 @@
 package com.igniteplus.data.pipeline.service
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
-import org.apache.spark.sql.{DataFrame, SparkSession}
-
+import com.igniteplus.data.pipeline.helper._
+import org.apache.spark.sql.DataFrame
 import org.scalatest.flatspec.AnyFlatSpec
 
-class FileWriterTest extends AnyFlatSpec {
-  @transient var spark: SparkSession = _
+class FileWriterTest extends AnyFlatSpec with Helpers {
 
-  spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
-
-
-  val testDf : DataFrame = readFile("data/input/testDf/testData.csv","csv")(spark)
-  val testDfCount = testDf.count()
+  val testDf : DataFrame = readFile(writeTestCaseInputPath,fileFormat)(sparkSession)
+  val testDfCount:Long = testDf.count()
 
 
   "writeFile() method" should "write data to the given location" in {
 
     if(testDfCount!=0)
       {
-        writeFile(testDf,"csv","data/output/testOutput/testDataOutput.csv")
-        val readSampleOutputDf:DataFrame = readFile("data/output/testOutput/testDataOutput.csv","csv")(spark)
+        writeFile(testDf,fileFormat,writeTestCaseOutputPath)
+        val readSampleOutputDf:DataFrame = readFile(writeTestCaseOutputPath,fileFormat)(sparkSession)
         val checkOutputFile = readSampleOutputDf.count()
         assertResult(testDfCount)(checkOutputFile)
       }
-
-
   }
 
 }

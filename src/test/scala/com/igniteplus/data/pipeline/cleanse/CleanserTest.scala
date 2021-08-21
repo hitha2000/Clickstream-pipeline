@@ -1,14 +1,14 @@
 package com.igniteplus.data.pipeline.cleanse
 
 import com.igniteplus.data.pipeline.cleaner.Cleanser.removeDuplicates
-import com.igniteplus.data.pipeline.constants.TestConstants.{CLICKSTREAM_UNIQUE_COLUMNS, deduplicationLocation, fileFormat, writeOutputPathForDeduplication}
+import com.igniteplus.data.pipeline.helper.Helpers
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 
-class CleanserTest extends AnyFlatSpec with BeforeAndAfterAll{
+class CleanserTest extends AnyFlatSpec with BeforeAndAfterAll with Helpers{
 
 
   @transient var spark: SparkSession = _

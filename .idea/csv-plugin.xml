@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\data\output\testOutput\testDataOutput.csv\part-00000-2d37ab19-b317-4b97-a162-23846a79efa1-c000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
